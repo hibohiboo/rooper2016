@@ -4,8 +4,8 @@ source "/vagrant/Docker/shell/env.conf"
 
 imageName="hibo/angular2"
 containerName="angular2"
-host_src_dir="/home/vagrant/angular2-quickstart"
-container_src_dir="/home/vagrant/host"
+host_src_dir="/home/vagrant/angular2/app"
+container_src_dir="/home/vagrant/angular2-quickstart/app"
 docker_dir="${path_Dockerfile_dir}/angular2"
 
 # -t: docker側の標準出力をホストの標準出力につなげる。
