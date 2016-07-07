@@ -1,4 +1,4 @@
-FROM node:5.12.0
+FROM node:4.4.7
 
 ENV DOCKER_FILE_DIR=/vagrant/Docker/angular2
 ENV WORK_DIR=/home/vagrant/angular2-quickstart
