@@ -12,9 +12,6 @@ WORKDIR ${WORK_DIR}
 # COPY命令では../のように親ディレクトリは指定できない。
 # 構築時にコンテクストのディレクトリ以下をDockerデーモンに送るため
 COPY package.json $WORK_DIR/package.json
-COPY tsconfig.json ${WORK_DIR}/tsconfig.json
-COPY typing.json ${WORK_DIR}/typing.json
-COPY system.config.js ${WORK_DIR}/system.config.js
 RUN npm install
 
 RUN mkdir app

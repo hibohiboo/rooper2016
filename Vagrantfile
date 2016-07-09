@@ -28,7 +28,7 @@ Vagrant.configure(2) do |config|
   config.vm.network "private_network", ip: "192.168.50.12"
   
   # 共有するフォルダの設定
-  config.vm.synced_folder 'angular2', '/home/vagrant/angular2'
+  # config.vm.synced_folder 'angular2', '/home/vagrant/angular2'
   
   # 使用するメモリ容量を変更。
   # デフォルトだと512で少ないためdockerのbuildが失敗しやすい
