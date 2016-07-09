@@ -15,4 +15,26 @@ COPY package.json $WORK_DIR/package.json
 RUN npm install
 
 RUN mkdir app
-CMD ["/bin/bash" ]
+
+#タスクランナーインストール
+ENV GULP_DIR=/home/vagrant/gulp
+RUN mkdir -p ${GULP_DIR}
+WORKDIR ${GULP_DIR}
+
+# package.jsonを書き出し
+# nameをgulpにするとエラーとなる
+RUN echo '{ "name": "my_gulp",  "scripts": { "gulp":"gulp" }}' > package.json
+
+# install
+RUN npm install -g gulp 
+RUN npm install --save-dev gulp 
+RUN npm install --save-dev require-dir 
+RUN npm install --save-dev gulp-if 
+
+#gulpfileを書き出し
+RUN echo "var requireDir = require('require-dir'); requireDir('/home/vagrant/share/gulp/tasks/', { recurse: true }); " > gulpfile.js 
+
+ENV SHARE_DIR=/home/vagrant/share
+RUN mkdir -p ${SHARE_DIR}
+
+CMD ["npm", "run", "gulp" ]
