@@ -1,5 +1,8 @@
 FROM node:6.3.0
 
+# Add our user and group first to make sure their IDs get assigned consistently
+RUN groupadd -r vagrant && useradd -r -g vagrant vagrant 
+
 ENV DOCKER_FILE_DIR=/vagrant/Docker/angular2
 ENV WORK_DIR=/home/vagrant/angular2-quickstart
 

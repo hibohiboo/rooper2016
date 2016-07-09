@@ -11,8 +11,17 @@ docker_dir="${path_Dockerfile_dir}/angular2"
 # -t: docker側の標準出力をホストの標準出力につなげる。
 # -i: ホスト側のキーボードで打った文字をコンテナに送る
 # -p:ポートフォワディング ホスト側：コンテナ側
+# -e:環境変数
+# -u:user
+# -v: ディレクトリ共有
 run(){
-  docker run --name $containerName --rm -it -p 80:3000 -v $host_src_dir:$container_src_dir $imageName
+  docker run --name $containerName --rm -it \
+             -p 80:3000 \
+             -m "300M" --memory-swap "1G" \
+             -e "NODE_ENV=production" \
+             -u vagrant \
+             -v $host_src_dir:$container_src_dir \
+             $imageName 
 }
 
 run_d(){
