@@ -17,7 +17,6 @@ gulp.task('copy',function(){
 
 gulp.task('angular2', function(){
   spawn('npm',['start'], {cwd:angular2_dir});
-  //, {stdio: ['pipe', process.stdout, process.stderr]});
 });
 
 gulp.task('watch',['copy'],function(){

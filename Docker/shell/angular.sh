@@ -28,9 +28,9 @@ run_d(){
   docker run --name $containerName -d -i \
              -p 80:3000 \
              -m "300M" --memory-swap "512M" \
-             -e "NODE_ENV=production" \
+             -e "NODE_ENV=development" \
              -v $host_src_dir:$container_src_dir \
-             $imageName 
+             $imageName
 }
 
 checkBeforeContainer $containerName
