@@ -40,7 +40,6 @@ Vagrant.configure(2) do |config|
   end
 
   # dockerをインストール
-  # Dockerフォルダの所有ユーザを変更
   config.vm.provision "shell", inline: $docker_install
 
 end
