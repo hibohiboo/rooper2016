@@ -3,7 +3,7 @@ var spawn = require('child_process').spawn;
 
 var angular2_dir = "/home/vagrant/angular2-quickstart";
 
-gulp.task('default', ['copy', 'watch', 'angular2']);
+gulp.task('default', ['copy','watch', 'angular2']);
 
 gulp.task('copy',function(){
     var base_dir = "/home/vagrant/share/angular2",
@@ -15,7 +15,7 @@ gulp.task('copy',function(){
     .pipe( gulp.dest( dist_dir ) );
 });
 
-gulp.task('angular2', function(){
+gulp.task('angular2',['copy'], function(){
   spawn('npm',['start'], {cwd:angular2_dir});
 });
 
