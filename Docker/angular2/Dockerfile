@@ -35,12 +35,26 @@ WORKDIR ${WORK_DIR}
 COPY package.json $WORK_DIR/package.json
 RUN npm install
 
-# 各種設定ファイル用意
-COPY tsconfig.json ${WORK_DIR}/tsconfig.json
-COPY typing.json ${WORK_DIR}/typing.json
-COPY systemjs.config.js ${WORK_DIR}/systemjs.config.js
+# loaderが足りない
+RUN npm install --save-dev angular2-template-loader
 
-RUN mkdir app
+# es6　対応
+RUN npm i -D babel-core babel-preset-es2015
+RUN npm i -D babel-loader
+RUN echo '{"presets": ["es2015"]}' > .babelrc
+
+# typescript設定
+COPY tsconfig.json ${WORK_DIR}/tsconfig.json
+COPY typings.json ${WORK_DIR}/typings.json
+RUN npm run postinstall
+
+# 各種設定ファイル用意
+COPY webpack.config.js ${WORK_DIR}/webpack.config.js
+COPY config ${WORK_DIR}/config
+
+
+RUN mkdir src
+RUN mkdir public
 
 # ======================================================================
 ENV SHARE_DIR=/home/vagrant/share

@@ -7,7 +7,16 @@ gulp.task('default', ['copy','watch', 'angular2']);
 
 gulp.task('copy',function(){
     var base_dir = "/home/vagrant/share/angular2",
-        dist_dir = angular2_dir;
+        dist_dir = angular2_dir + "/src",
+        public_base_dir = base_dir + "/public",
+        public_dist_dir = angular2_dir + "/public";
+
+    gulp.src(
+        [ public_base_dir + '/images/*', public_base_dir + '/css/*' ],
+        { "base": public_base_dir }
+    )
+    .pipe( gulp.dest( public_dist_dir ) );
+
     return gulp.src(
         [ base_dir + '/*', base_dir + '/app/*' ],
         { "base": base_dir }
@@ -20,5 +29,5 @@ gulp.task('angular2',['copy'], function(){
 });
 
 gulp.task('watch',['copy'],function(){
-  gulp.watch(['/home/vagrant/share/angular2/**'], ['copy']);
+  gulp.watch(['/home/vagrant/share/angular2/**', '/home/vagrant/share/public'], ['copy']);
 });
