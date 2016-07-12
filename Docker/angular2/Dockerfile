@@ -38,11 +38,6 @@ RUN npm install
 # loaderが足りない
 RUN npm install --save-dev angular2-template-loader
 
-# es6　対応
-RUN npm i -D babel-core babel-preset-es2015
-RUN npm i -D babel-loader
-RUN echo '{"presets": ["es2015"]}' > .babelrc
-
 # typescript設定
 COPY tsconfig.json ${WORK_DIR}/tsconfig.json
 COPY typings.json ${WORK_DIR}/typings.json
