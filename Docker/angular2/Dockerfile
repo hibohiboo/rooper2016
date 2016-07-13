@@ -4,7 +4,9 @@ FROM node:4.4.7
 RUN groupadd -r vagrant && useradd -r -g vagrant vagrant 
 
 ENV DOCKER_FILE_DIR=/vagrant/Docker/angular2
-ENV WORK_DIR=/home/vagrant/angular2-quickstart
+ENV HOME_DIR=/home/vagrant
+ENV WORK_DIR=${HOME_DIR}/angular2-webpack-starter
+
 
 # ======================================================================
 #タスクランナーインストール
@@ -27,34 +29,17 @@ RUN echo "var requireDir = require('require-dir'); requireDir('/home/vagrant/sha
 
 # ======================================================================
 
-RUN mkdir -p ${WORK_DIR}
+RUN mkdir -p ${HOME_DIR}
+WORKDIR ${HOME_DIR}
+
+RUN git clone --depth 1 https://github.com/angularclass/angular2-webpack-starter.git
 WORKDIR ${WORK_DIR}
 
-# COPY命令では../のように親ディレクトリは指定できない。
-# 構築時にコンテクストのディレクトリ以下をDockerデーモンに送るため
-COPY package.json $WORK_DIR/package.json
 RUN npm install
 
-# loaderが足りない
-RUN npm install --save-dev angular2-template-loader
+RUN sed -i.bak -e 's/localhost/0.0.0.0/' ./config/webpack.dev.js
 
-# typescript設定
-COPY tsconfig.json ${WORK_DIR}/tsconfig.json
-COPY typings.json ${WORK_DIR}/typings.json
-RUN npm run postinstall
-
-# 各種設定ファイル用意
-COPY webpack.config.js ${WORK_DIR}/webpack.config.js
-COPY config ${WORK_DIR}/config
-
-
-RUN mkdir src
-RUN mkdir public
-
-# ======================================================================
-ENV SHARE_DIR=/home/vagrant/share
-RUN mkdir -p ${SHARE_DIR}
-# ======================================================================
+# RUN sed -i.bak -e "s/METADATA\.host/'0.0.0.0'/" ./config/webpack.dev.js
 
 WORKDIR ${GULP_DIR}
 CMD ["npm", "run", "gulp" ]
