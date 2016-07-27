@@ -6,6 +6,7 @@ import { NoContent } from './no-content';
 import { DataResolver } from './app.resolver';
 
 import { TestComponent } from './test';
+import { HeroComponent } from './hero';
 
 export const routes: RouterConfig = [
   { path: '',      component: Home },
@@ -22,7 +23,8 @@ export const routes: RouterConfig = [
     children: [
       { path: '', component: 'Index' }  // must be included
     ]},
-  { path: '**',    component: NoContent },
+  { path: 'hero', component: HeroComponent },
+  { path: '**',    component: NoContent }
 ];
 
 // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
@@ -42,6 +44,7 @@ export const asyncRoutes: AsyncRoutes = {
 export const prefetchRouteCallbacks: Array<IdleCallbacks> = [
   asyncRoutes['About'],
   asyncRoutes['Detail'],
+  asyncRoutes['Hero']
    // es6-promise-loader returns a function
 ];
 
