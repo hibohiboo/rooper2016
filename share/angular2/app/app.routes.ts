@@ -7,6 +7,7 @@ import { DataResolver } from './app.resolver';
 
 import { TestComponent } from './test';
 import { HeroComponent } from './hero';
+import { ScenarioComponent} from './scenario';
 
 export const routes: RouterConfig = [
   { path: '',      component: Home },
@@ -24,6 +25,7 @@ export const routes: RouterConfig = [
       { path: '', component: 'Index' }  // must be included
     ]},
   { path: 'hero', component: HeroComponent },
+  { path: 'scenario', component: ScenarioComponent },
   { path: '**',    component: NoContent }
 ];
 
@@ -44,7 +46,8 @@ export const asyncRoutes: AsyncRoutes = {
 export const prefetchRouteCallbacks: Array<IdleCallbacks> = [
   asyncRoutes['About'],
   asyncRoutes['Detail'],
-  asyncRoutes['Hero']
+  asyncRoutes['Hero'],
+  asyncRoutes['Scenario']
    // es6-promise-loader returns a function
 ];
 

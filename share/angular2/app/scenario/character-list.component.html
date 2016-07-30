@@ -1,0 +1,8 @@
+    <h2>キャラクター</h2>
+    <ul class="characters">
+      <li *ngFor="let character of characters"
+        [class.selected]="character === selectedCharacter"
+        (click)="onSelect(character)">
+        <span class="badge">{{character.id}}</span> {{character.name}}
+      </li>
+    </ul>

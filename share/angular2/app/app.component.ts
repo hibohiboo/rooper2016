@@ -43,7 +43,13 @@ import { AppState } from './app.service';
       |
       <span>
         <a [routerLink]=" ['./hero'] ">
-          Hero2
+          Hero
+        </a>
+      </span>
+      |
+      <span>
+        <a [routerLink]=" ['./scenario'] ">
+          Scenario
         </a>
       </span>
     </nav>
