@@ -12,17 +12,11 @@ import { MastermindCardComponent } from '../mastermind-card';
 })
 export class CharacterListComponent {
   title = '脚本作成';
-  characters: Character[];
+  @Input() characters: Character[];
   selectedCharacter: Character;
-  selectedCharacters: Character[];
+  @Input() selectedCharacters: Character[];
   constructor(private characterService: CharacterService) {  }
-  getCharacters() {
-    this.characterService.getCharacters().then(characters => this.characters = characters);
-  }
-  ngOnInit() {
-    this.getCharacters();
-    this.selectedCharacters = [];
-  }
+
   onSelect(character: Character) {
        this.selectedCharacter = character;
        this.selectedCharacters.push(character);

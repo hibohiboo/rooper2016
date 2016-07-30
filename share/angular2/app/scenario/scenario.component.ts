@@ -13,15 +13,15 @@ import { CharacterListComponent } from './character-list.component';
 })
 export class ScenarioComponent {
   title = '脚本作成';
-  // characters: Character[];
-  // selectedCharacter: Character;
-  // constructor(private characterService: CharacterService) { }
-  // getCharacters() {
-  //   this.characterService.getCharacters().then(characters => this.characters = characters);
-  // }
-  // ngOnInit() {
-  //   this.getCharacters();
-  // }
-  // onSelect(character: Character) { this.selectedCharacter = character; }
-
+  characters: Character[];
+  selectedCharacter: Character;
+  selectedCharacters: Character[];
+  constructor(private characterService: CharacterService) {  }
+  getCharacters() {
+    this.characterService.getCharacters().then(characters => this.characters = characters);
+  }
+  ngOnInit() {
+    this.getCharacters();
+    this.selectedCharacters = [];
+  }
  }
