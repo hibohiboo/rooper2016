@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { Character } from '../models/character';
 import { CharacterService } from '../services/character.service';
 import { CharacterListComponent } from './character-list.component';
-//import { MastermindCardComponent } from '../mastermind-card';
+import { MastermindCardComponent } from '../mastermind-card';
 // import '../../assets/css/styles.css';
 @Component({
   selector: 'scenario',
   templateUrl: './scenario.component.html',
  // styleUrls: ['./scenario.component.css'],
   providers: [CharacterService],
-  directives: [CharacterListComponent]
+  directives: [CharacterListComponent, MastermindCardComponent]
 })
 export class ScenarioComponent {
   title = '脚本作成';

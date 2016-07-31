@@ -1,3 +1,6 @@
 
     <h1>{{title}}</h1>
-    <character-list [characters]="characters"></character-list>
+    <character-list [characters]="characters" 
+                    [selectedCharacters]="selectedCharacters">
+    </character-list>
+    <mastermind-card [characters]="selectedCharacters"></mastermind-card>
