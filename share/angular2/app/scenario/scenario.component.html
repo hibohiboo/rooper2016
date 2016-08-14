@@ -1,6 +1,14 @@
 
     <h1>{{title}}</h1>
+
+    <tragedySet-list [tragedySets]="tragedySets" 
+                     [selectedSet]="selectedSet">
+    </tragedySet-list>
+
     <character-list [characters]="characters" 
                     [selectedCharacters]="selectedCharacters">
     </character-list>
-    <mastermind-card [characters]="selectedCharacters"></mastermind-card>
+
+    <mastermind-card [characters]="selectedCharacters" 
+                     [tragedySet]="selectedSet">
+    </mastermind-card>
