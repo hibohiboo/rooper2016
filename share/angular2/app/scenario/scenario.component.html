@@ -9,6 +9,11 @@
                     [selectedCharacters]="selectedCharacters">
     </character-list>
 
+    <character-role-list
+        [characters]="selectedCharacters" 
+        [tragedySet]="selectedSet">
+    </character-role-list>
+
     <mastermind-card [characters]="selectedCharacters" 
                      [tragedySet]="selectedSet">
     </mastermind-card>
