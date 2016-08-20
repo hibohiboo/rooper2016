@@ -36,6 +36,7 @@ export class ScenarioComponent {
       this.characters = characters;
       this.selectedCharacters = [];
       for(let i=0;i<3;i++){
+        characters[i].selected = true;
         this.selectedCharacters.push(characters[i]);
       }
     });

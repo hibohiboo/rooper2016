@@ -12,6 +12,5 @@ import { Character } from '../models/character';
   `
 })
 export class CharacterDetailComponent {
-  @Input()
-  character: Character;
+  @Input() character: Character;
 }

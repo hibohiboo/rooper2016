@@ -18,7 +18,7 @@ docker_dir="${path_Dockerfile_dir}/angular2"
 run(){
   docker run --name $containerName --rm -it \
              -p 80:3000 \
-             -m "300M" --memory-swap "512M" \
+             -m "1024M"  \
              -e "NODE_ENV=production" \
              -v $host_src_dir:$container_src_dir \
              $imageName 
@@ -27,7 +27,7 @@ run(){
 run_d(){
   docker run --name $containerName -d -i \
              -p 80:3000 \
-             -m "300M" --memory-swap "512M" \
+             -m "1024M" \
              -e "NODE_ENV=development" \
              -v $host_src_dir:$container_src_dir \
              $imageName
