@@ -1,5 +1,5 @@
 
-export class Rule {
+export class Plot {
   name: string;
-  protType: string; // M:ルールY, S:ルールX
+  type: string; // M:ルールY, S:ルールX
 }
