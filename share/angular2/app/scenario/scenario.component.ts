@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Character } from '../models/character';
+import { Scenario} from '../models/scenario';
 import { CharacterService } from '../services/character.service';
 import { CharacterListComponent } from './character-list.component';
 import { MastermindCardComponent } from '../mastermind-card';
@@ -10,6 +11,10 @@ import { TragedySetListComponent } from './tragedySet-list.component';
 
 import { CharacterRoleListComponent } from './character-role-list.component';
 // import '../../assets/css/styles.css';
+
+/**
+ * 
+ */
 @Component({
   selector: 'scenario',
   templateUrl: './scenario.component.html',
@@ -27,9 +32,9 @@ export class ScenarioComponent {
   selectedCharacters: Character[];
   tragedySets: TragedySet[];
   selectedSet: TragedySet;
+  scenario:Scenario;
 
-  constructor(private characterService: CharacterService, 
-              private tragedySetService: TragedySetService) {  }
+  constructor(private characterService: CharacterService) {  }
   
   /**
    * キャラクターを取得する。
@@ -52,19 +57,7 @@ export class ScenarioComponent {
       }
   }
 
-  /**
-   * 惨劇セットを取得する。
-   */
-  getTragedySets(){
-    this.tragedySetService.getTragedySets().then(tragedySets => {
-      this.tragedySets = tragedySets;
-      // 初期セットを設定する。
-      this.selectedSet = tragedySets[1];
-    });
-  }
-
   ngOnInit() {
     this.getCharacters();
-    this.getTragedySets();
   }
  }

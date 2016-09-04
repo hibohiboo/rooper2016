@@ -1,12 +1,17 @@
 import { TragedySet } from '../models/tragedySet';
 export const TRAGEDY_SETS: TragedySet[] = function(){
-  var sets:TragedySet[] = [
+  let sets:TragedySet[] = [
     {"name": "First Step",
      "subplot_num":1,
       "plot_list": [
         {"type":"M","name":"殺人計画",           "roles":["キラー", "クロマク","キーパーソン"], "rules":[]},
-        {"type":"S","name":"潜む殺人鬼",         "roles":["フレンド", "シリアルキラー"],          "rules":[]}
-
+        {"type":"S","name":"潜む殺人鬼",         "roles":["フレンド", "シリアルキラー"],         "rules":[]}
+      ],
+      "role_list":[
+       {"name":"キラー", "limit":""},
+       {"name":"クロマク", "limit":""},
+       {"name":"キーパーソン", "limit":""},
+       {"name":"カルティスト", "limit":""}
       ]
     },
     {"name": "Basic Tragedy X", 
@@ -30,7 +35,7 @@ export const TRAGEDY_SETS: TragedySet[] = function(){
        {"name":"クロマク", "limit":""},
        {"name":"キーパーソン", "limit":""},
        {"name":"カルティスト", "limit":""},
-       {"name":"タイムトラベラート", "limit":""},
+       {"name":"タイムトラベラー", "limit":""},
        {"name":"ウィッチ", "limit":""},
        {"name":"フレンド", "limit":2},
        {"name":"メインラバーズ", "limit":""},

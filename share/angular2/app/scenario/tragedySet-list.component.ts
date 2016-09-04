@@ -1,5 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
+import { Scenario } from '../models/scenario';
 import { TragedySet } from '../models/tragedySet';
+import { TragedySetService } from '../services/tragedySet.service';
+
 
 @Component({
   selector: 'tragedySet-list',
@@ -55,10 +58,12 @@ import { TragedySet } from '../models/tragedySet';
     }
   `]
 })
-export class TragedySetListComponent {
+export class TragedySetListComponent implements OnChanges {
   title = '脚本選択';
-  @Input() tragedySets: TragedySet[];
-  @Input() selectedSet: TragedySet;
+  @Input() 
+  scenario:Scenario;
+  tragedySets: TragedySet[];
+  selectedSet: TragedySet;
   plotY_list:any;
   plotX_list:any;
   selectedPlotY: any;
@@ -66,18 +71,47 @@ export class TragedySetListComponent {
   selectedPlot_list:any;
   selectedRole_list:any;
 
+  constructor(private tragedySetService: TragedySetService) {  }
+  ngOnInit() {
+    this.getTragedySets();
+    this.selectedPlot_list=[];
+    this.selectedPlotX_list=[];
+    this.selectedRole_list=[];
+  }
+
+  /**
+   * 惨劇セットを取得する。
+   */
+  getTragedySets(){
+    this.tragedySetService.getTragedySets().then(tragedySets => {
+      this.tragedySets = tragedySets;
+      // 初期セットを設定する。
+      this.selectedSet = tragedySets[1];
+    });
+  }
+
+  /**
+   * 惨劇セット選択イベントにバインド
+   */
   onSelect(set: TragedySet) { 
     this.selectedSet = set;
+    this.scenario.selectedSet = set;
     this._setPlotList();
   }
 
   onSelectPlotY(plot: any) { 
     this.selectedPlotY = plot;
     this._setPlot();
+
   }
 
   onSelectPlotX(plot: any) { 
-    if(this.selectedPlotX_list.findIndex(elm=>elm.name === plot.name) !== -1){
+    // すでに選択されているルールだった場合、選択を解除する。
+    let checkIndex = this.selectedPlotX_list.findIndex(elm=>elm.name === plot.name);
+    if( checkIndex !== -1){
+      this.selectedPlotX_list.splice(checkIndex, 1);
+      plot.selected = false;
+      this._setPlot();
       return;
     }
     if(this.selectedPlotX_list.length === this.selectedSet.subplot_num){
@@ -88,7 +122,9 @@ export class TragedySetListComponent {
     this.selectedPlotX_list.push(plot);
     this._setPlot();
   }
-
+  /**
+   * 一覧の作成
+   */
   _setPlot(){
     // ルール一覧の作成
     this.selectedPlot_list = this.selectedPlotY ? [this.selectedPlotY].concat(this.selectedPlotX_list)
@@ -98,6 +134,7 @@ export class TragedySetListComponent {
     this.selectedPlot_list.forEach(plot=>{
       let role_list = plot.roles.forEach(role_name=>{
         let role = this.selectedSet.role_list.find(role=>role.name === role_name);
+        // 役職の上限を超えていなければ役職リストに追加
         if( ! role.limit || role.limit > this.selectedRole_list.filter( role => role.name === role_name ).length){
           this.selectedRole_list.push(role);
         }
@@ -105,13 +142,9 @@ export class TragedySetListComponent {
     });
   }
 
-  ngOnInit() {
-    this.selectedPlot_list=[];
-    this.selectedPlotX_list=[];
-    this.selectedRole_list=[];
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
+  // ngOnChanges(changes:{[propName: string]: SimpleChange}) { 
+  // TODO:SimpleChangeがトランスパイル時にnot foundとなる
+  ngOnChanges(changes:any) {
     if(changes['selectedSet']){
       this._setPlotList();
     }
