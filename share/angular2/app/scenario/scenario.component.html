@@ -1,8 +1,11 @@
 
     <h1>{{title}}</h1>
 
-    <tragedySet-list [scenario]="scenario">
+    <tragedySet-list [scenario]="scenario" (onSet)="plotList.setPlotList()">
     </tragedySet-list>
+
+    <plot-list [scenario]="scenario" #plotList>
+    </plot-list>
 
     <character-list [characters]="characters" 
                     [selectedCharacters]="selectedCharacters">

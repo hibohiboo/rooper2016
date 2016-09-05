@@ -8,6 +8,7 @@ import { MastermindCardComponent } from '../mastermind-card';
 import { TragedySet } from '../models/tragedySet';
 import { TragedySetService } from '../services/tragedySet.service';
 import { TragedySetListComponent } from './tragedySet-list.component';
+import { PlotListComponent } from './plot-list.component';
 
 import { CharacterRoleListComponent } from './character-role-list.component';
 // import '../../assets/css/styles.css';
@@ -23,6 +24,7 @@ import { CharacterRoleListComponent } from './character-role-list.component';
   directives: [CharacterListComponent, 
                MastermindCardComponent, 
                TragedySetListComponent,
+               PlotListComponent,
                CharacterRoleListComponent ]
 })
 export class ScenarioComponent {
@@ -59,5 +61,6 @@ export class ScenarioComponent {
 
   ngOnInit() {
     this.getCharacters();
+    this.scenario = new Scenario();
   }
  }
