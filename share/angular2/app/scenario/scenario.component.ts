@@ -63,4 +63,5 @@ export class ScenarioComponent {
     this.getCharacters();
     this.scenario = new Scenario();
   }
+
  }

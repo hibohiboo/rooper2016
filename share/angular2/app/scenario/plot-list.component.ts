@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Scenario } from '../models/scenario';
 import { TragedySet } from '../models/tragedySet';
 
@@ -46,7 +46,7 @@ import { TragedySet } from '../models/tragedySet';
     }
   `]
 })
-export class PlotListComponent implements OnChanges {
+export class PlotListComponent {
   title = 'ルール選択';
   @Input() scenario:Scenario;
   selectedSet: TragedySet;
@@ -72,8 +72,6 @@ export class PlotListComponent implements OnChanges {
       this.selectedSet = this.scenario.selectedSet;
       this._setPlotList();
   }
-
-
 
   onSelectPlotY(plot: any) { 
     this.selectedPlotY = plot;
@@ -118,6 +116,9 @@ export class PlotListComponent implements OnChanges {
     });
   }
 
+  /**
+   * ルールXとルールYを惨劇セットから定義
+   */
   _setPlotList(){
     if(this.selectedSet){
       this.plotY_list = this.selectedSet.plot_list.filter(plot=>plot.type==='M');

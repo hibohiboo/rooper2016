@@ -28,7 +28,7 @@ import { TragedySetService } from '../services/tragedySet.service';
 export class TragedySetListComponent{
   title = '脚本選択';
   @Input()  scenario:Scenario;
-  @Output() onSet = new EventEmitter();
+  @Output() onSet = new EventEmitter<boolean>();
 
   tragedySets: TragedySet[];
 
@@ -46,7 +46,7 @@ export class TragedySetListComponent{
       this.tragedySets = tragedySets;
       // 初期セットを設定する。
       this.scenario.selectedSet = tragedySets[1];
-      this.onSet.emit();
+      this.onSet.emit(true);
     });
   }
 
@@ -55,6 +55,6 @@ export class TragedySetListComponent{
    */
   onSelect(set: TragedySet) { 
     this.scenario.selectedSet=set ;
-    this.onSet.emit();
+    this.onSet.emit(true);
   }
 }
