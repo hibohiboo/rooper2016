@@ -18,6 +18,7 @@ $docker_install = <<SHELL
 
     sudo apt-get update
     sudo apt-get -y install docker-engine
+    sudo apt-get -y install docker-compose
     sudo gpasswd -a vagrant docker
 SHELL
 
