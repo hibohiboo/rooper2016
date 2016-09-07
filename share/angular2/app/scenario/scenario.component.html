@@ -1,18 +1,20 @@
 
     <h1>{{title}}</h1>
 
-    <tragedySet-list [scenario]="scenario" (onSet)="plotList.setPlotList()">
+    <tragedySet-list [scenario]="scenario" 
+                     (onSet)="plotList.setPlotList()">
     </tragedySet-list>
 
-    <plot-list [scenario]="scenario" #plotList>
+    <plot-list [scenario]="scenario"
+                (onSet)="characterRoleList.setRoleList()" 
+               #plotList>
     </plot-list>
 
     <character-list [scenario]="scenario">
     </character-list>
 
-    <character-role-list
-        [characters]="selectedCharacters" 
-        [tragedySet]="selectedSet">
+    <character-role-list [scenario]="scenario"
+                         #characterRoleList>
     </character-role-list>
 
     <mastermind-card [scenario]="scenario">

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Scenario } from '../models/scenario';
 import { TragedySet } from '../models/tragedySet';
 
@@ -34,7 +34,7 @@ import { TragedySet } from '../models/tragedySet';
 
       <p>ルールによって追加される役職</p>
       <ul class="list">
-        <li *ngFor="let role of selectedRole_list">
+        <li *ngFor="let role of scenario.selectedRoleList">
           {{role.name}}
         </li>
       </ul>
@@ -56,13 +56,13 @@ import { TragedySet } from '../models/tragedySet';
 export class PlotListComponent {
   title = 'ルール選択';
   @Input() scenario:Scenario;
+  @Output() onSet = new EventEmitter<boolean>();
   selectedSet: TragedySet;
   plotY_list:any;
   plotX_list:any;
   selectedPlotY: any;
   selectedPlotX_list:any;
   selectedPlot_list:any;
-  selectedRole_list:any;
   notSelectedList:any;
 
   onClick(){
@@ -72,7 +72,7 @@ export class PlotListComponent {
   ngOnInit() {
     this.selectedPlot_list=[];
     this.selectedPlotX_list=[];
-    this.selectedRole_list=[];
+    this.scenario.selectedRoleList=[];
     this.selectedSet = this.scenario.selectedSet;
   }
 
@@ -112,21 +112,23 @@ export class PlotListComponent {
     this.selectedPlot_list = this.selectedPlotY ? [this.selectedPlotY].concat(this.selectedPlotX_list)
                                                 : this.selectedPlotX_list;
     // 役職一覧の作成。
-    this.selectedRole_list =[];
+    this.scenario.selectedRoleList =[];
     this.selectedPlot_list.forEach(plot=>{
       let role_list = plot.roles.forEach(role_name=>{
         let role = this.selectedSet.role_list.find(role=>role.name === role_name);
         // 役職の上限を超えていなければ役職リストに追加
-        if( ! role.limit || role.limit > this.selectedRole_list.filter( role => role.name === role_name ).length){
-          this.selectedRole_list.push(role);
+        if( ! role.limit || role.limit > this.scenario.selectedRoleList.filter( role => role.name === role_name ).length){
+          this.scenario.selectedRoleList.push(role);
         }
       });
     });
 
     // 選択されていない役職一覧の作成
     this.notSelectedList = this.selectedSet.role_list
-                               .filter(role => -1 === this.selectedRole_list
+                               .filter(role => -1 === this.scenario.selectedRoleList
                                                           .findIndex(r=>r.id===role.id));
+
+    this.onSet.emit(true);
   }
 
   /**

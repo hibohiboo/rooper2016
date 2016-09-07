@@ -30,5 +30,8 @@ export const CHARACTERS: Character[] = function(){
   for(let i=0,len=chars.length;i<len;i++){
     chars[i].selected = false;
   }
+  for(let i=0,len=chars.length;i<len;i++){
+    chars[i].role = null;
+  }
   return chars;
 }();
