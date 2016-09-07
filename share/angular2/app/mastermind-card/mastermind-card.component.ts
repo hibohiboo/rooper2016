@@ -17,7 +17,10 @@ import { Scenario } from '../models/scenario';
   <h3>キャラクター</h3>
   <ul>
     <li *ngFor="let character of scenario.selectedCharacters">
-        <span class="badge">{{character.id}}</span> {{character.name}}
+        <span class="badge">{{character.id}}</span> 
+        {{character.name}}
+        |
+        <span *ngIf="character.role">{{character.role.name}}</span>
     </li>
   </ul>
   `

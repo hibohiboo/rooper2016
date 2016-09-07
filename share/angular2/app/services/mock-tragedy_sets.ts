@@ -47,6 +47,12 @@ export const TRAGEDY_SETS: TragedySet[] = function(){
   },
     {"name": "Midnight Zone", "subplot_num":2,  "plot_list":[],"role_list":[]}
   ];
+  sets.forEach(set=>{
+    for(let i=0,len=set.role_list.length;i<len;i++){
+      set.role_list[i].selected = false;
+    }
+  });
+
   return sets;
 }();
 

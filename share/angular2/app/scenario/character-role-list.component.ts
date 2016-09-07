@@ -12,9 +12,16 @@ import { Scenario } from '../models/scenario';
           <li *ngFor="let character of scenario.selectedCharacters">
             {{character.name}}
             <select *ngIf="character.id !== 11">
-              <option>パーソン</option>
-              <option *ngFor="let role of unallocateList">
+              <option (click)="onSelect(character,role, true)">
+                パーソン
+              </option>
+              <option *ngFor="let role of unallocateList"
+                      (click)="onSelect(character, role, false)">
                 {{role.name}}
+              </option>
+              <option *ngIf="character.role"
+                      selected>
+                {{character.role.name}}
               </option>
             </select>
             <select *ngIf="character.id === 11">
@@ -47,5 +54,29 @@ export class CharacterRoleListComponent {
     this.irregularList = this.scenario.selectedSet.role_list
                                .filter(role => -1 === this.scenario.selectedRoleList
                                                           .findIndex(r=>r.id===role.id));
+
+    // 役職初期化                                                          
+    for(let i = 0, len = this.scenario.selectedCharacters.length; i < len; i++){
+      if(this.scenario.selectedCharacters[i].role){
+        this.scenario.selectedCharacters[i].role.selected = false;
+      }
+      this.scenario.selectedCharacters[i].role = null;
+    }
+  }
+
+  onSelect(character, role, is_person){
+    if(character.role) {
+      character.role.selected = false;
+    }
+
+    if(is_person){
+      character.role = null;
+    }else{
+      character.role = role;
+    }
+    
+    role.selected = true;
+    this.unallocateList = this.scenario.selectedRoleList
+                              .filter(role => role.selected===false);
   }
 }
