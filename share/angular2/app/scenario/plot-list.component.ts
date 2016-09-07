@@ -38,6 +38,13 @@ import { TragedySet } from '../models/tragedySet';
           {{role.name}}
         </li>
       </ul>
+
+      <p>ルールによって追加されなかった役職</p>
+      <ul class="list">
+        <li *ngFor="let role of notSelectedList">
+          {{role.name}}
+        </li>
+      </ul>
     </div>
   `,
   styles: [`
@@ -56,6 +63,7 @@ export class PlotListComponent {
   selectedPlotX_list:any;
   selectedPlot_list:any;
   selectedRole_list:any;
+  notSelectedList:any;
 
   onClick(){
       console.log(this.scenario);
@@ -114,6 +122,11 @@ export class PlotListComponent {
         }
       });
     });
+
+    // 選択されていない役職一覧の作成
+    this.notSelectedList = this.selectedSet.role_list
+                               .filter(role => -1 === this.selectedRole_list
+                                                          .findIndex(r=>r.id===role.id));
   }
 
   /**

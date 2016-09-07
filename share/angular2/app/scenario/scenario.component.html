@@ -7,8 +7,7 @@
     <plot-list [scenario]="scenario" #plotList>
     </plot-list>
 
-    <character-list [characters]="characters" 
-                    [selectedCharacters]="selectedCharacters">
+    <character-list [scenario]="scenario">
     </character-list>
 
     <character-role-list
@@ -16,6 +15,5 @@
         [tragedySet]="selectedSet">
     </character-role-list>
 
-    <mastermind-card [characters]="selectedCharacters" 
-                     [tragedySet]="selectedSet">
+    <mastermind-card [scenario]="scenario">
     </mastermind-card>

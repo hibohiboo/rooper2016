@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Character } from '../models/character';
 import { Scenario} from '../models/scenario';
+
 import { CharacterService } from '../services/character.service';
 import { CharacterListComponent } from './character-list.component';
 import { MastermindCardComponent } from '../mastermind-card';
@@ -38,29 +39,29 @@ export class ScenarioComponent {
 
   constructor(private characterService: CharacterService) {  }
   
-  /**
-   * キャラクターを取得する。
-   */
-  getCharacters() {
-    this.characterService.getCharacters().then(characters => {
-      this.characters = characters;
-      this.setFirstCharacters();
-    });
-  }
+  // /**
+  //  * キャラクターを取得する。
+  //  */
+  // getCharacters() {
+  //   this.characterService.getCharacters().then(characters => {
+  //     this.characters = characters;
+  //     this.setFirstCharacters();
+  //   });
+  // }
 
-  /**
-   * 初期キャラクターを設定する。
-   */
-  setFirstCharacters(){
-      this.selectedCharacters = [];
-      for(let i=0;i<3;i++){
-        this.characters[i].selected = true;
-        this.selectedCharacters.push(this.characters[i]);
-      }
-  }
+  // /**
+  //  * 初期キャラクターを設定する。
+  //  */
+  // setFirstCharacters(){
+  //     this.selectedCharacters = [];
+  //     for(let i=0;i<3;i++){
+  //       this.characters[i].selected = true;
+  //       this.selectedCharacters.push(this.characters[i]);
+  //     }
+  // }
 
   ngOnInit() {
-    this.getCharacters();
+    // this.getCharacters();
     this.scenario = new Scenario();
   }
 
