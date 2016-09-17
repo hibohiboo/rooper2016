@@ -10,7 +10,8 @@
                #plotList>
     </plot-list>
 
-    <character-list [scenario]="scenario">
+    <character-list [scenario]="scenario"
+                    (onSet)="characterRoleList.setRoleList()" >
     </character-list>
 
     <character-role-list [scenario]="scenario"

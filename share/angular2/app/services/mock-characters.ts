@@ -1,4 +1,4 @@
-import { Character } from '../models/character';
+import { Character, IllegularCharacter } from '../models/character';
 export const CHARACTERS: Character[] = function(){
   var chars:any = [
     {"id": 1,  "name": "男子学生",   "paranoia_limit": 2},
@@ -27,11 +27,14 @@ export const CHARACTERS: Character[] = function(){
     {"id": 24, "name": "軍人",       "paranoia_limit": 2},
     {"id": 25, "name": "黒猫",       "paranoia_limit": 0}
   ];
-  for(let i=0,len=chars.length;i<len;i++){
-    chars[i].selected = false;
-  }
-  for(let i=0,len=chars.length;i<len;i++){
-    chars[i].role = null;
-  }
-  return chars;
+  const ret:Character[] = chars.map(char=>{
+    let {id, name, paranoia_limit } = char;
+
+    if (char.name === 'イレギュラー') {
+      return new IllegularCharacter(id, name, paranoia_limit);
+    }
+
+    return new Character(id, name, paranoia_limit);
+  });
+  return ret;
 }();

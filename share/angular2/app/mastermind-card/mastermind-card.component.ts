@@ -21,6 +21,7 @@ import { Scenario } from '../models/scenario';
         {{character.name}}
         |
         <span *ngIf="character.role">{{character.role.name}}</span>
+        <span *ngIf="!character.role">パーソン</span>
     </li>
   </ul>
   `

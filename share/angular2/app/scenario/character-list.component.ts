@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Character } from '../models/character';
 import { Scenario } from '../models/scenario';
 import { CharacterService } from '../services/character.service';
@@ -13,6 +13,7 @@ import { CharacterDetailComponent } from './character-detail.component';
 })
 export class CharacterListComponent {
   @Input() scenario:Scenario;
+  @Output() onSet = new EventEmitter<boolean>();
 
   title = 'キャラクター選択';
   characters: Character[];
@@ -46,19 +47,22 @@ export class CharacterListComponent {
   }
 
   onSelect(character: Character) {
-       this.selectedCharacter = character;
+    this.selectedCharacter = character;
 
-      // キャラクターを選択したらリストに追加。もう一度選択でリストから外す。
-       var index = this.scenario.selectedCharacters
-                       .findIndex((char:Character)=>char.id === character.id);
+    // キャラクターを選択したらリストに追加。もう一度選択でリストから外す。
+    var index = this.scenario.selectedCharacters
+                    .findIndex((char:Character)=>char.id === character.id);
 
-       if( index === -1){
-         this.scenario.selectedCharacters.push(character);
-         character.selected = true;
-       }else{
-         this.scenario.selectedCharacters.splice(index,1);
-         character.selected = false;
-       }
+    if( index === -1){
+      this.scenario.selectedCharacters.push(character);
+      character.selected = true;
+    }else{
+      this.scenario.selectedCharacters.splice(index,1);
+      character.selected = false;
+    }
+
+    // 設定完了を通知
+    this.onSet.emit(true);
   }
 
  }

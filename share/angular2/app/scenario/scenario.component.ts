@@ -37,31 +37,9 @@ export class ScenarioComponent {
   selectedSet: TragedySet;
   scenario:Scenario;
 
-  constructor(private characterService: CharacterService) {  }
-  
-  // /**
-  //  * キャラクターを取得する。
-  //  */
-  // getCharacters() {
-  //   this.characterService.getCharacters().then(characters => {
-  //     this.characters = characters;
-  //     this.setFirstCharacters();
-  //   });
-  // }
-
-  // /**
-  //  * 初期キャラクターを設定する。
-  //  */
-  // setFirstCharacters(){
-  //     this.selectedCharacters = [];
-  //     for(let i=0;i<3;i++){
-  //       this.characters[i].selected = true;
-  //       this.selectedCharacters.push(this.characters[i]);
-  //     }
-  // }
+  constructor() {  }
 
   ngOnInit() {
-    // this.getCharacters();
     this.scenario = new Scenario();
   }
 

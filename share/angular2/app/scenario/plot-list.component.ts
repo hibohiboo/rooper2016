@@ -118,7 +118,8 @@ export class PlotListComponent {
         let role = this.selectedSet.role_list.find(role=>role.name === role_name);
         // 役職の上限を超えていなければ役職リストに追加
         if( ! role.limit || role.limit > this.scenario.selectedRoleList.filter( role => role.name === role_name ).length){
-          this.scenario.selectedRoleList.push(role);
+          var copy = Object.assign({}, role);
+          this.scenario.selectedRoleList.push(copy);
         }
       });
     });
