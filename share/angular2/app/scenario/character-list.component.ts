@@ -35,13 +35,11 @@ export class CharacterListComponent {
    * 初期キャラクターを設定する。
    */
   setFirstCharacters(){
-      this.scenario.selectedCharacters = [];
-      for(let i=0;i<9;i++){
-        this.characters[i].selected = true;
-        this.scenario.selectedCharacters.push(this.characters[i]);
-      }
+      this.scenario.setFirstCharacters(this.characters);
   }
-
+  /**
+   * 初期化。キャラクター取得。
+   */
   ngOnInit() {
     this.getCharacters();
   }
@@ -49,17 +47,8 @@ export class CharacterListComponent {
   onSelect(character: Character) {
     this.selectedCharacter = character;
 
-    // キャラクターを選択したらリストに追加。もう一度選択でリストから外す。
-    var index = this.scenario.selectedCharacters
-                    .findIndex((char:Character)=>char.id === character.id);
-
-    if( index === -1){
-      this.scenario.selectedCharacters.push(character);
-      character.selected = true;
-    }else{
-      this.scenario.selectedCharacters.splice(index,1);
-      character.selected = false;
-    }
+    // // キャラクターを選択したらリストに追加。もう一度選択でリストから外す。
+    this.scenario.selectCharacter(character);
 
     // 設定完了を通知
     this.onSet.emit(true);
