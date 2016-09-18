@@ -129,7 +129,8 @@ export class PlotListComponent {
     //     }
     //   });
     // });
-    this.scenario.initRoleList(this.selectedPlot_list);
+    this.scenario.selectedPlotList = this.selectedPlot_list;
+    this.scenario.initRoleList();
 
     // 選択されていない役職一覧の作成
     this.notSelectedList = this.selectedSet.role_list

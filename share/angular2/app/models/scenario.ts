@@ -3,6 +3,7 @@ import { Character, IllegularCharacter }  from './character';
 
 export class Scenario {
   selectedSet: TragedySet;
+  selectedPlotList:any;
   selectedCharacters: Character[];
   selectedRoleList:any;
 
@@ -50,9 +51,9 @@ export class Scenario {
   /**
    * 役職一覧を初期化する。
    */
-  initRoleList(selectedPlotList){
+  initRoleList(){
     this.selectedRoleList =[];
-    selectedPlotList.forEach(plot=>{
+    this.selectedPlotList.forEach(plot=>{
       let role_list = plot.roles.forEach(role_name=>{
         let role = this.selectedSet.role_list.find(role=>role.name === role_name);
         // 役職の上限を超えていなければ役職リストに追加
