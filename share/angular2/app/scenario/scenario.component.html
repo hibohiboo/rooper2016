@@ -1,22 +1,29 @@
 
-    <h1>{{title}}</h1>
+<h1>{{title}}</h1>
 
-    <tragedySet-list [scenario]="scenario" 
-                     (onSet)="plotList.setPlotList()">
-    </tragedySet-list>
+<tragedySet-list [scenario]="scenario" 
+                 (onSet)="plotList.setPlotList()">
+</tragedySet-list>
 
-    <plot-list [scenario]="scenario"
-                (onSet)="characterRoleList.setRoleList()" 
-               #plotList>
-    </plot-list>
+<h2>ループ回数を選択してください</h2>
+<input type="nubmer" [(ngModel)]="scenario.numberOfLoops"/>
+<h2>1ループの日数を選択してください</h2>
+<input type="number" [(ngModel)]="scenario.daysPerLoop" (change)="onChange()"/>
 
-    <character-list [scenario]="scenario"
-                    (onSet)="characterRoleList.setRoleList()" >
-    </character-list>
+<incident-list [scenario] = "scenario" #incidentList></incident-list>
 
-    <character-role-list [scenario]="scenario"
-                         #characterRoleList>
-    </character-role-list>
+<plot-list [scenario]="scenario"
+            (onSet)="characterRoleList.setRoleList()" 
+            #plotList>
+</plot-list>
 
-    <mastermind-card [scenario]="scenario">
-    </mastermind-card>
+<character-list [scenario]="scenario"
+                (onSet)="characterRoleList.setRoleList();incidentList.setCharacterList()" >
+</character-list>
+
+<character-role-list [scenario]="scenario"
+                        #characterRoleList>
+</character-role-list>
+
+<mastermind-card [scenario]="scenario">
+</mastermind-card>

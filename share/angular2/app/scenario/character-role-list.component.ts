@@ -17,7 +17,7 @@ import { Scenario } from '../models/scenario';
               <option (click)="onSelect(character,role, true)">
                 パーソン
               </option>
-              <option *ngFor="let role of unallocateList"
+              <option *ngFor="let role of unallocatedRoleList"
                       (click)="onSelect(character, role, false)">
                 {{role.name}}
               </option>
@@ -41,8 +41,8 @@ import { Scenario } from '../models/scenario';
   //         </li>
   //       </ul>
 
-  //       <ul *ngIf="unallocateList">
-  //         <li *ngFor="let role of unallocateList">
+  //       <ul *ngIf="unallocatedRoleList">
+  //         <li *ngFor="let role of unallocatedRoleList">
   //           {{role.name}} | {{role.selected}}
   //         </li>
   //       </ul>
@@ -56,13 +56,13 @@ import { Scenario } from '../models/scenario';
 export class CharacterRoleListComponent {
   title = '役職選択';
   @Input() scenario:Scenario;
-  unallocateList:any;
+  unallocatedRoleList:any;
 
   /**
    * 変数初期化
    */
   ngOnInit() {
-    this.unallocateList =[];
+    this.unallocatedRoleList =[];
   }
   /**
    * 役職を初期化する。
@@ -81,7 +81,7 @@ export class CharacterRoleListComponent {
    * 役職一覧を更新する。
    */
   setRoleList(){
-    this.unallocateList = this.scenario.selectedRoleList;
+    this.unallocatedRoleList = this.scenario.selectedRoleList;
     this.initCharactersRoles();
   }
 
@@ -90,7 +90,7 @@ export class CharacterRoleListComponent {
    */
   onSelect(character, role, isPerson){
     character.addRole(role, isPerson);
-    this.unallocateList = this.scenario.selectedRoleList
+    this.unallocatedRoleList = this.scenario.selectedRoleList
                               .filter(r => r.selected===false);
   }
 }

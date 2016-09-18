@@ -19,7 +19,7 @@ import { TragedySet } from '../models/tragedySet';
         </li>
       </ul>
 
-      <p>ルールXから{{scenario.selectedSet.subplot_num}}つ選んでください</p>
+      <p>ルールXから{{scenario.selectedSet.subplotNum}}つ選んでください</p>
       <ul class="list">
         <li *ngFor="let plot of plotX_list"
           [class.selected]="plot.selected === true"
@@ -30,7 +30,7 @@ import { TragedySet } from '../models/tragedySet';
 
       <p>選択中のルール</p>
       <ul class="list">
-        <li *ngFor="let plot of selectedPlot_list">
+        <li *ngFor="let plot of selectedplotList">
           {{plot.name}}
         </li>
       </ul>
@@ -56,12 +56,12 @@ export class PlotListComponent {
   plotX_list:any;
   selectedPlotY: any;
   selectedPlotX_list:any;
-  selectedPlot_list:any;
+  selectedplotList:any;
 
   ngOnInit() {
     this.scenario.selectedPlotList=[];
     this.scenario.selectedRoleList=[];
-    this.selectedPlot_list=[];
+    this.selectedplotList=[];
     this.selectedPlotX_list=[];
   }
 
@@ -86,7 +86,7 @@ export class PlotListComponent {
       this._setPlot();
       return;
     }
-    if(this.selectedPlotX_list.length === this.scenario.selectedSet.subplot_num){
+    if(this.selectedPlotX_list.length === this.scenario.selectedSet.subplotNum){
       let before_plot = this.selectedPlotX_list.pop();
       before_plot.selected = false;
     }
@@ -100,9 +100,9 @@ export class PlotListComponent {
    */
   _setPlot(){
     // ルール一覧の作成
-    this.selectedPlot_list = this.selectedPlotY ? [this.selectedPlotY].concat(this.selectedPlotX_list)
+    this.selectedplotList = this.selectedPlotY ? [this.selectedPlotY].concat(this.selectedPlotX_list)
                                                 : this.selectedPlotX_list;
-    this.scenario.selectedPlotList = this.selectedPlot_list;
+    this.scenario.selectedPlotList = this.selectedplotList;
     // 役職一覧の作成。
     this._initRoleList();
 
@@ -114,15 +114,15 @@ export class PlotListComponent {
    */
   _initRoleList(){
     this.scenario.selectedRoleList =[];
-    this.selectedPlot_list.forEach(plot=>{
-      let role_list = plot.roles.forEach(role_name=>{
-        let role = this.scenario.selectedSet.role_list.find(role=>role.name === role_name);
+    this.selectedplotList.forEach(plot=>{
+      let roleList = plot.roles.forEach(role_name=>{
+        let role = this.scenario.selectedSet.roleList.find(role=>role.name === role_name);
         // 役職の上限を超えていなければ役職リストに追加
         if( ! role.limit || role.limit > this.scenario
                                              .selectedRoleList
                                              .filter( role => role.name === role_name )
                                              .length){
-          var copy = Object.assign({}, role);
+          let copy = Object.assign({}, role);
           this.scenario.selectedRoleList.push(copy);
         }
       });
@@ -134,8 +134,8 @@ export class PlotListComponent {
    */
   _setPlotList(){
     if(this.scenario.selectedSet){
-      this.plotY_list = this.scenario.selectedSet.plot_list.filter(plot=>plot.type==='M');
-      this.plotX_list = this.scenario.selectedSet.plot_list.filter(plot=>plot.type==='S');
+      this.plotY_list = this.scenario.selectedSet.plotList.filter(plot=>plot.type==='M');
+      this.plotX_list = this.scenario.selectedSet.plotList.filter(plot=>plot.type==='S');
     }
   }
 }

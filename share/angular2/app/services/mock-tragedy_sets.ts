@@ -2,35 +2,36 @@ import { TragedySet } from '../models/tragedySet';
 export const TRAGEDY_SETS: TragedySet[] = function(){
   let sets:TragedySet[] = [
     {"name": "First Step",
-     "subplot_num":1,
-      "plot_list": [
+     "subplotNum":1,
+      "plotList": [
         {"type":"M","name":"殺人計画",           "roles":["キラー", "クロマク","キーパーソン"], "rules":[]},
         {"type":"S","name":"潜む殺人鬼",         "roles":["フレンド", "シリアルキラー"],         "rules":[]}
       ],
-      "role_list":[
+      "roleList":[
        {"name":"キラー", "limit":""},
        {"name":"クロマク", "limit":""},
        {"name":"キーパーソン", "limit":""},
        {"name":"カルティスト", "limit":""}
-      ]
+      ],
+      "incidentList":[]
     },
     {"name": "Basic Tragedy X", 
-     "subplot_num":2,
-     "plot_list":[
-        {"type":"M", "id":1,  "name":"殺人計画",           "roles":["キラー", "クロマク","キーパーソン"], "rules":[]},
+      "subplotNum":2,
+      "plotList":[
+        {"type":"M", "id":1,  "name":"殺人計画",             "roles":["キラー", "クロマク","キーパーソン"], "rules":[]},
         {"type":"M", "id":2,  "name":"封印されしモノ",       "roles":["クロマク", "カルティスト"],          "rules":[{"type":"敗北条件","timing":"ループ終了時","rule":"神社に[暗躍カウンター]が２つ以上ある。"}]},
         {"type":"M", "id":3,  "name":"僕と契約しようよ",     "roles":["キーパーソン"],                    "rules":[{"type":"敗北条件","timing":"ループ終了時","rule":"キーパーソンに[暗躍カウンター]が２個以上。"}, {"type":"強制","timing":"脚本作成時","rule":"キーパーソンは少女にしなくてはならない。"}]},
-        {"type":"M", "id":4,  "name":"未来改変プラン",      "roles":["タイムトラベラー", "カルティスト"],     "rules":[{"type":"敗北条件","timing":"ループ終了時","rule":"このループ中に「事件：蝶の羽ばたき」が発生している。"}]},
-        {"type":"M", "id":5,  "name":"巨大時限爆弾Xの存在", "roles":["ウィッチ"],                        "rules":[{"type":"敗北条件","timing":"ループ終了時","rule":"ウィッチの初期エリアに[暗躍カウンター]が２つ以上。"}]},
-        {"type":"S", "id":6,  "name":"友情サークル",        "roles":["フレンド", "フレンド", "ミスリーダー"], "rules":[]},
-        {"type":"S", "id":7,  "name":"恋愛風景",           "roles":[ "メインラバーズ", "ラバーズ"],        "rules":[]},
-        {"type":"S", "id":8,  "name":"因果の糸",           "roles":[],                                 "rules":[{"type":"強制", "timing":"ループ開始時", "rule":"ひとつ前のループ終了時に[友好カウンター]が置かれていた全キャラクターに[不安カウンター]を２つ置く。"}]},
-        {"type":"S", "id":9,  "name":"不穏な噂",           "roles":["ミスリーダー"],                      "rules":[{"type":"任意能力", "timing":"脚本家能力フェイズ", "rule":"脚本家能力フェイズ】任意のボード１つに[暗躍カウンター]を１つ置く。", "limitation":"１ループに１回制限"}]},
-        {"type":"S", "id":10, "name":"不確定因子χ",        "roles":["ファクター"],                        "rules":[]},
-        {"type":"S", "id":11, "name":"潜む殺人鬼",         "roles":["フレンド", "シリアルキラー"],          "rules":[]},
-        {"type":"S", "id":12, "name":"妄想拡大ウイルス",    "roles":["ミスリーダー"],                      "rules":[{"type":"強制", "timing":"常時", "rule":"パーソンは[不安カウンター]が３つ以上置かれている限り、役職がシリアルキラーに変更される。"}]}
+        {"type":"M", "id":4,  "name":"未来改変プラン",       "roles":["タイムトラベラー", "カルティスト"],     "rules":[{"type":"敗北条件","timing":"ループ終了時","rule":"このループ中に「事件：蝶の羽ばたき」が発生している。"}]},
+        {"type":"M", "id":5,  "name":"巨大時限爆弾Xの存在",  "roles":["ウィッチ"],                        "rules":[{"type":"敗北条件","timing":"ループ終了時","rule":"ウィッチの初期エリアに[暗躍カウンター]が２つ以上。"}]},
+        {"type":"S", "id":6,  "name":"友情サークル",         "roles":["フレンド", "フレンド", "ミスリーダー"], "rules":[]},
+        {"type":"S", "id":7,  "name":"恋愛風景",             "roles":[ "メインラバーズ", "ラバーズ"],        "rules":[]},
+        {"type":"S", "id":8,  "name":"因果の糸",             "roles":[],                                 "rules":[{"type":"強制", "timing":"ループ開始時", "rule":"ひとつ前のループ終了時に[友好カウンター]が置かれていた全キャラクターに[不安カウンター]を２つ置く。"}]},
+        {"type":"S", "id":9,  "name":"不穏な噂",             "roles":["ミスリーダー"],                      "rules":[{"type":"任意能力", "timing":"脚本家能力フェイズ", "rule":"脚本家能力フェイズ】任意のボード１つに[暗躍カウンター]を１つ置く。", "limitation":"１ループに１回制限"}]},
+        {"type":"S", "id":10, "name":"不確定因子χ",         "roles":["ファクター"],                        "rules":[]},
+        {"type":"S", "id":11, "name":"潜む殺人鬼",           "roles":["フレンド", "シリアルキラー"],          "rules":[]},
+        {"type":"S", "id":12, "name":"妄想拡大ウイルス",     "roles":["ミスリーダー"],                      "rules":[{"type":"強制", "timing":"常時", "rule":"パーソンは[不安カウンター]が３つ以上置かれている限り、役職がシリアルキラーに変更される。"}]}
     ],
-     "role_list":[
+    "roleList":[
        {"id":1,  "name":"キラー", "limit":""},
        {"id":2,  "name":"クロマク", "limit":""},
        {"id":3,  "name":"キーパーソン", "limit":""},
@@ -43,13 +44,24 @@ export const TRAGEDY_SETS: TragedySet[] = function(){
        {"id":10, "name":"シリアルキラー", "limit":""},
        {"id":11, "name":"ファクター", "limit":""},
        {"id":12, "name":"ミスリーダー", "limit":1}
-     ]
+     ],
+    "incidentList":[
+      {"name":"殺人事件",     "effect":"犯人と同一エリアにいる犯人以外の任意のキャラクター１人を死亡させる。"},
+      {"name":"不安拡大",     "effect":"任意のキャラクター１人に不安カウンターを２つ置き、任意の別のキャラクター１人に暗躍カウンターを１つ置く。"},
+      {"name":"自殺",         "effect":"犯人は死亡する。"},
+      {"name":"病院の事件",   "effect":"病院に[暗躍カウンター]が１つ以上→病院にいる全てのキャラクターを死亡させる。病院に[暗躍カウンター]が２つ以上→主人公を死亡させる。"},
+      {"name":"遠隔殺人",     "effect":"[暗躍カウンター]が２つ以上置かれたキャラクター１人を死亡させる"},
+      {"name":"行方不明",     "effect":"犯人を任意のボードに移動させる。その後、犯人のいるボードに[暗躍カウンター]を１つ置く"},
+      {"name":"流布",         "effect":"任意のキャラクター１人から[友好カウンター]を２つ取り除き、別のキャラクター１人に[友好カウンター]を２つ置く。"},
+      {"name":"邪気の汚染",   "effect":"神社に[暗躍カウンター]を２つ置く。"},
+      {"name":"蝶の羽ばたき", "effect":"犯人と同一エリアにいるキャラクター1人にいずれかのカウンターを１つ置く。"}
+    ]
   },
-    {"name": "Midnight Zone", "subplot_num":2,  "plot_list":[],"role_list":[]}
+    {"name": "Midnight Zone", "subplotNum":2,  "plotList":[],"roleList":[], "incidentList":[]}
   ];
   sets.forEach(set=>{
-    for(let i=0,len=set.role_list.length;i<len;i++){
-      set.role_list[i].selected = false;
+    for(let i=0,len=set.roleList.length;i<len;i++){
+      set.roleList[i].selected = false;
     }
   });
 

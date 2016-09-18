@@ -13,6 +13,7 @@ import { CharacterDetailComponent } from './character-detail.component';
   selector: 'character-list',
   templateUrl: './character-list.component.html',
   styleUrls: ['./character-list.component.css'],
+  providers: [CharacterService],
   directives: [CharacterDetailComponent]
 })
 export class CharacterListComponent {
@@ -32,6 +33,9 @@ export class CharacterListComponent {
     this.characterService.getCharacters().then(characters => {
       this.characters = characters;
       this.initCharacters();
+      
+       // 設定完了を通知
+      this.onSet.emit(true);
     });
   }
 

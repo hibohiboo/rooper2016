@@ -57,7 +57,8 @@ export class TragedySetListComponent{
    * 惨劇セット選択イベントにバインド
    */
   onSelect(set: TragedySet) { 
-    this.scenario.selectedSet=set ;
+    this.scenario.selectedSet=set;
+    console.log(set.incidentList);
     this.onSet.emit(true);
   }
 }
