@@ -2,11 +2,14 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Scenario } from '../models/scenario';
 import { TragedySet } from '../models/tragedySet';
 
+/**
+ * シナリオにルールとルールから選択される役職を追加するクラス。
+ */
 @Component({
   selector: 'plot-list',
   template: `
-    <h2 (click)="onClick()">ルール選択</h2>
-    <div  *ngIf=selectedSet>
+    <h2>ルール選択</h2>
+    <div  *ngIf=scenario.selectedSet>
       <p>ルールYから１つ選んでください</p>
       <ul class="list">
         <li *ngFor="let plot of plotY_list"
@@ -16,7 +19,7 @@ import { TragedySet } from '../models/tragedySet';
         </li>
       </ul>
 
-      <p>ルールXから{{selectedSet.subplot_num}}つ選んでください</p>
+      <p>ルールXから{{scenario.selectedSet.subplot_num}}つ選んでください</p>
       <ul class="list">
         <li *ngFor="let plot of plotX_list"
           [class.selected]="plot.selected === true"
@@ -39,14 +42,6 @@ import { TragedySet } from '../models/tragedySet';
         </li>
       </ul>
       `,
-  //     <p>ルールによって追加されなかった役職</p>
-  //     <ul class="list">
-  //       <li *ngFor="let role of notSelectedList">
-  //         {{role.name}}
-  //       </li>
-  //     </ul>
-  //   </div>
-  // `,
   styles: [`
     .selected {
       font-weight:bold;
@@ -57,27 +52,20 @@ export class PlotListComponent {
   title = 'ルール選択';
   @Input() scenario:Scenario;
   @Output() onSet = new EventEmitter<boolean>();
-  selectedSet: TragedySet;
   plotY_list:any;
   plotX_list:any;
   selectedPlotY: any;
   selectedPlotX_list:any;
   selectedPlot_list:any;
-  notSelectedList:any;
-
-  onClick(){
-      console.log(this.scenario);
-  }
 
   ngOnInit() {
+    this.scenario.selectedPlotList=[];
+    this.scenario.selectedRoleList=[];
     this.selectedPlot_list=[];
     this.selectedPlotX_list=[];
-    this.scenario.selectedRoleList=[];
-    this.selectedSet = this.scenario.selectedSet;
   }
 
   setPlotList() {
-      this.selectedSet = this.scenario.selectedSet;
       this._setPlotList();
   }
 
@@ -98,7 +86,7 @@ export class PlotListComponent {
       this._setPlot();
       return;
     }
-    if(this.selectedPlotX_list.length === this.selectedSet.subplot_num){
+    if(this.selectedPlotX_list.length === this.scenario.selectedSet.subplot_num){
       let before_plot = this.selectedPlotX_list.pop();
       before_plot.selected = false;
     }
@@ -114,39 +102,40 @@ export class PlotListComponent {
     // ルール一覧の作成
     this.selectedPlot_list = this.selectedPlotY ? [this.selectedPlotY].concat(this.selectedPlotX_list)
                                                 : this.selectedPlotX_list;
-    // 役職一覧の作成。
-    // this.scenario.selectedRoleList =[];
-    // this.selectedPlot_list.forEach(plot=>{
-    //   let role_list = plot.roles.forEach(role_name=>{
-    //     let role = this.selectedSet.role_list.find(role=>role.name === role_name);
-    //     // 役職の上限を超えていなければ役職リストに追加
-    //     if( ! role.limit || role.limit > this.scenario
-    //                                          .selectedRoleList
-    //                                          .filter( role => role.name === role_name )
-    //                                          .length){
-    //       var copy = Object.assign({}, role);
-    //       this.scenario.selectedRoleList.push(copy);
-    //     }
-    //   });
-    // });
     this.scenario.selectedPlotList = this.selectedPlot_list;
-    this.scenario.initRoleList();
-
-    // 選択されていない役職一覧の作成
-    this.notSelectedList = this.selectedSet.role_list
-                               .filter(role => -1 === this.scenario.selectedRoleList
-                                                          .findIndex(r=>r.id===role.id));
+    // 役職一覧の作成。
+    this._initRoleList();
 
     this.onSet.emit(true);
+  }
+
+  /**
+   * 役職一覧の初期化
+   */
+  _initRoleList(){
+    this.scenario.selectedRoleList =[];
+    this.selectedPlot_list.forEach(plot=>{
+      let role_list = plot.roles.forEach(role_name=>{
+        let role = this.scenario.selectedSet.role_list.find(role=>role.name === role_name);
+        // 役職の上限を超えていなければ役職リストに追加
+        if( ! role.limit || role.limit > this.scenario
+                                             .selectedRoleList
+                                             .filter( role => role.name === role_name )
+                                             .length){
+          var copy = Object.assign({}, role);
+          this.scenario.selectedRoleList.push(copy);
+        }
+      });
+    });    
   }
 
   /**
    * ルールXとルールYを惨劇セットから定義
    */
   _setPlotList(){
-    if(this.selectedSet){
-      this.plotY_list = this.selectedSet.plot_list.filter(plot=>plot.type==='M');
-      this.plotX_list = this.selectedSet.plot_list.filter(plot=>plot.type==='S');
+    if(this.scenario.selectedSet){
+      this.plotY_list = this.scenario.selectedSet.plot_list.filter(plot=>plot.type==='M');
+      this.plotX_list = this.scenario.selectedSet.plot_list.filter(plot=>plot.type==='S');
     }
   }
 }

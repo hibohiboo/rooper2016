@@ -34,6 +34,9 @@ export class TragedySetListComponent{
 
   constructor(private tragedySetService: TragedySetService) {  }
 
+  /**
+   * 惨劇セット一覧を取得ｓ。
+   */
   ngOnInit() {
     this.getTragedySets();
   }

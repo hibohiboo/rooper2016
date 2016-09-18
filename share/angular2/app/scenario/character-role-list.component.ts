@@ -2,7 +2,9 @@ import { Component, Input } from '@angular/core';
 import { Character, IllegularCharacter } from '../models/character';
 import { TragedySet } from '../models/tragedySet';
 import { Scenario } from '../models/scenario';
-
+/**
+ * 選択中のキャラクターに役職を設定するクラス
+ */
 @Component({
   selector: 'character-role-list',
   template: `
@@ -55,19 +57,32 @@ export class CharacterRoleListComponent {
   title = '役職選択';
   @Input() scenario:Scenario;
   unallocateList:any;
-  irregularList:any;
 
+  /**
+   * 変数初期化
+   */
   ngOnInit() {
     this.unallocateList =[];
-    this.irregularList = [];
   }
-
+  /**
+   * 役職を初期化する。
+   */
+  initCharactersRoles(){
+    this.scenario.selectedCharacters.forEach(character=>{
+      // イレギュラー処理
+      if( character instanceof IllegularCharacter ){
+        character.initRole(this);
+      }else{
+        character.initRole();
+      }
+    });
+  }
   /**
    * 役職一覧を更新する。
    */
   setRoleList(){
     this.unallocateList = this.scenario.selectedRoleList;
-    this.scenario.initCharactersRoles();
+    this.initCharactersRoles();
   }
 
   /**
