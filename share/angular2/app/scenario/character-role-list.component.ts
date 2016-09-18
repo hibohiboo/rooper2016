@@ -32,19 +32,19 @@ import { Scenario } from '../models/scenario';
             </select>
           </li>
         </ul>
+    `,
+  //       <ul *ngIf="scenario.selectedRoleList">
+  //         <li *ngFor="let role of scenario.selectedRoleList">
+  //           {{role.name}} | {{role.selected}}
+  //         </li>
+  //       </ul>
 
-        <ul *ngIf="scenario.selectedRoleList">
-          <li *ngFor="let role of scenario.selectedRoleList">
-            {{role.name}} | {{role.selected}}
-          </li>
-        </ul>
-
-        <ul *ngIf="unallocateList">
-          <li *ngFor="let role of unallocateList">
-            {{role.name}} | {{role.selected}}
-          </li>
-        </ul>
-  `,
+  //       <ul *ngIf="unallocateList">
+  //         <li *ngFor="let role of unallocateList">
+  //           {{role.name}} | {{role.selected}}
+  //         </li>
+  //       </ul>
+  // `,
   styles: [`
     .selected {
       font-weight:bold;
@@ -67,16 +67,6 @@ export class CharacterRoleListComponent {
    */
   setRoleList(){
     this.unallocateList = this.scenario.selectedRoleList;
-
-    // 役職初期化                                                          
-    // this.scenario.selectedCharacters.forEach(character=>{
-    //   // イレギュラー処理
-    //   if( character instanceof IllegularCharacter ){
-    //     character.initRole(this.scenario);
-    //   }else{
-    //     character.initRole();
-    //   }
-    // });
     this.scenario.initCharactersRoles();
   }
 

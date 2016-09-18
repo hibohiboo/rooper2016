@@ -27,15 +27,15 @@ export class CharacterListComponent {
   getCharacters() {
     this.characterService.getCharacters().then(characters => {
       this.characters = characters;
-      this.setFirstCharacters();
+      this.initCharacters();
     });
   }
 
   /**
    * 初期キャラクターを設定する。
    */
-  setFirstCharacters(){
-      this.scenario.setFirstCharacters(this.characters);
+  initCharacters(){
+      this.scenario.initCharacters(this.characters);
   }
   /**
    * 初期化。キャラクター取得。
@@ -47,8 +47,8 @@ export class CharacterListComponent {
   onSelect(character: Character) {
     this.selectedCharacter = character;
 
-    // // キャラクターを選択したらリストに追加。もう一度選択でリストから外す。
-    this.scenario.selectCharacter(character);
+    // キャラクターを選択したらリストに追加。もう一度選択でリストから外す。
+    this.scenario.toggleCharacter(character);
 
     // 設定完了を通知
     this.onSet.emit(true);
